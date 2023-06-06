@@ -43,11 +43,22 @@ const OwnPrompt = () => {
           <h1 className="w-full text-gray-50 font-bold text-8xl z-10">
             VISUALISIERE <br /> DEINE IDEEN
           </h1>
-          <p className="w-full text-gray-50 font-medium text-md max-w-3xl z-10">
+          <p className="w-full text-gray-50 font-medium text-md max-w-2xl z-10">
             Lass deiner Vorstellungskraft freien Lauf und beschreibe, wie das
             Bild aussehen soll, das von der KI generiert werden soll. Beschreibe
             die Farben, Formen, Texturen oder andere Merkmale, die du
-            bevorzugst, damit die KI dein ideales Bild erstellen kann.
+            bevorzugst, damit die KI dein ideales Bild erstellen kann. <br />
+            Hier sind einige Beispiele: <br /> <br />
+            - "Priester, blaue Roben, 68-jähriger Mann, National Geographic,
+            Porträt, Foto, Fotografie" <br />
+            <br />
+            - "Mittleres Seitenprofil-Portraitfoto des Kriegshäuptlings Takeshi
+            Kaneshiro, Stammes-Panther-Make-up, blau auf rot, wegschauend,
+            ernste Augen, 50-mm-Portrait, Fotografie,
+            Hard-Rim-Lighting-Fotografie" <br />
+            <br />- "ein ganzseitiges Design des Raumschiffmotors, schwarzes und
+            bronzefarbenes Papier, kompliziert, hochdetailliert, episch,
+            Infografik, Marginalien"
           </p>
         </div>
         <div className="flex justify-start items-center w-[40%] mt-80">
