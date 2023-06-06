@@ -1,17 +1,30 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import spirale_img from "../assets/spirale.png";
+import dataFile from "../data.txt";
 
 const RandomPrompt = () => {
   const [inputValue, setInputValue] = useState("");
+  const [promptArr, setPromptArr] = useState([
+    "generating Prompt...",
+    "generating Prompt...",
+    "generating Prompt...",
+  ]);
+
   const socketUrl = "ws://localhost:5001";
-  const navigate = useNavigate();
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+
+  const navigate = useNavigate();
 
   const handleClickSendMessage = useCallback((input) => {
     sendMessage(input.formData);
   }, []);
+
+  // eslint-disable-next-line no-extend-native
+  Array.prototype.random = function () {
+    return this[Math.floor(Math.random() * this.length)];
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,11 +35,23 @@ const RandomPrompt = () => {
     navigate("/strampeln");
   }
 
-  const mockData = [
-    "Lass deiner Vorstellungskraft freien Lauf und beschreibe, wie das Bild aussehen soll, das von der KI generiert werden soll. Beschreibe die Farben, Formen, Texturen oder andere Merkmale, die du",
-    "prompt2",
-    "prompt3",
-  ];
+  function chooseRandomPrompts(data) {
+    promptArr[0] = data.random();
+    promptArr[1] = data.random();
+    while (promptArr[1] === promptArr[0]) {
+      promptArr[1] = data.random();
+    }
+    promptArr[2] = data.random();
+    while (promptArr[2] === promptArr[1] || promptArr[2] === promptArr[0]) {
+      promptArr[2] = data.random();
+    }
+  }
+
+  useEffect(() => {
+    fetch(dataFile)
+      .then((response) => response.text().then((text) => text.split("\r\n")))
+      .then((actualData) => chooseRandomPrompts(actualData));
+  }, []);
 
   return (
     <div
@@ -65,7 +90,6 @@ const RandomPrompt = () => {
             className="w-full flex-col flex justify-center items-center gap-6"
           >
             <h2 className="w-full text-gray-50 font-bold text-3xl z-10 max-w-lg">
-              {" "}
               Wähle einen der drei Vorschläge aus und beginne die Generierung!
             </h2>
             <div className="flex w-[80%] flex-col gap-2">
@@ -76,15 +100,15 @@ const RandomPrompt = () => {
                 Vorschlag 1:
               </label>
               <p
-                onClick={() => setInputValue(mockData[0])}
+                onClick={() => setInputValue(promptArr[0])}
                 id="prompt1"
                 className={`pl-8 w-full text-green-800 text-lg font-medium p-4 hover:bg-green-100 hover:border-green-800 border-green-200 border-2 hover:text-green-900 rounded-full bg-green-200 ${
-                  inputValue === mockData[0]
+                  inputValue === promptArr[0]
                     ? "border-green-800 bg-green-100"
                     : ""
                 }`}
               >
-                {[mockData[0]]}
+                {[promptArr[0]]}
               </p>
             </div>
             <div className="flex w-[80%] flex-col gap-2">
@@ -95,15 +119,15 @@ const RandomPrompt = () => {
                 Vorschlag 2:
               </label>
               <p
-                onClick={() => setInputValue(mockData[1])}
+                onClick={() => setInputValue(promptArr[1])}
                 id="prompt2"
                 className={`pl-8 w-full text-green-800 text-lg font-medium p-4 hover:bg-green-100 hover:border-green-800 border-green-200 border-2 hover:text-green-900 rounded-full bg-green-200 ${
-                  inputValue === mockData[1]
+                  inputValue === promptArr[1]
                     ? "border-green-800 bg-green-100"
                     : ""
                 }`}
               >
-                {[mockData[1]]}
+                {[promptArr[1]]}
               </p>
             </div>
             <div className="flex w-[80%] flex-col gap-2">
@@ -114,15 +138,15 @@ const RandomPrompt = () => {
                 Vorschlag 3:
               </label>
               <p
-                onClick={() => setInputValue(mockData[2])}
+                onClick={() => setInputValue(promptArr[2])}
                 id="prompt3"
                 className={`pl-8 w-full text-green-800 text-lg font-medium p-4 hover:bg-green-100 hover:border-green-800 border-green-200 border-2 hover:text-green-900 rounded-full bg-green-200 ${
-                  inputValue === mockData[2]
+                  inputValue === promptArr[2]
                     ? "border-green-800 bg-green-100"
                     : ""
                 }`}
               >
-                {[mockData[2]]}
+                {[promptArr[2]]}
               </p>
             </div>
             <button
