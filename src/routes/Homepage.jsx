@@ -18,7 +18,7 @@ const Homepage = ({ messageHistory }) => {
   }[readyState];
 
   return (
-    <div className="h-screen w-full bg-black">
+    <div className={`h-screen w-full bg-black`}>
       <div className="relative h-full w-full flex">
         <div className="w-48 bg-gray-700 top-12 left-20 absolute rounded-full py-8 pr-9 pl-7 flex justify-center items-center">
           <img

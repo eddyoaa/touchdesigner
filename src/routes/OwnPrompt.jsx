@@ -23,7 +23,11 @@ const OwnPrompt = () => {
   }
 
   return (
-    <div className="h-screen w-full bg-black overflow-y-hidden">
+    <div
+      className={`h-screen w-full bg-black overflow-y-hidden ${
+        readyState !== ReadyState.OPEN ? "bg-red-500" : ""
+      }`}
+    >
       <div className="relative h-full w-full flex">
         <div className="absolute top-16 left-32 z-10">
           <Link to={"/"}>
@@ -61,7 +65,7 @@ const OwnPrompt = () => {
             Infografik, Marginalien"
           </p>
         </div>
-        <div className="flex justify-start items-center w-[40%] mt-80">
+        <div className="flex justify-start items-center w-[40%] mt-40">
           <form
             onSubmit={handleSubmit}
             className="flex justify-center items-center"
