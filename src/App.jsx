@@ -5,6 +5,7 @@ import ErrorPage from "./routes/Error-page";
 import Homepage from "./routes/Homepage";
 import OwnPrompt from "./routes/OwnPrompt";
 import RandomPrompt from "./routes/RandomPrompt";
+import Strampeln from "./routes/Strampeln";
 
 const App = () => {
   const [messageHistory, setMessageHistory] = useState([]);
@@ -25,6 +26,7 @@ const App = () => {
     },
     { path: "/random", element: <RandomPrompt /> },
     { path: "/own", element: <OwnPrompt /> },
+    { path: "/strampeln", element: <Strampeln /> },
   ]);
 
   return (
